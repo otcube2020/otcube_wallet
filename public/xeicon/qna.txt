@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=yes target-densitydpi=medium-dpi" />
+	<meta name="format-detection" content="telephone=no" />
+
+	<!-- link css -->
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/common.css">
+	<link rel="stylesheet" href="./css/style.css">
+
+	<!-- link js -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="./js/style.js"></script>
+
+	<title>거래소</title>
+</head>
+
+<body>
+
+	<div class="header">
+		<a href="0_slidemenu.html" class="btn_slide_menu"><img src="./images/ico_hamburger.png" width="50%"></a>
+		<h1><a href="index.html" class="logo_top"><img src="./images/img_logo.png"></a></h1>
+		<a href="0_push_notice.html" class="push_alert">
+			<img src="./images/ico_main_alarm.png" alt="" />
+		</a>
+	</div>
+	<!--// header -->
+
+	<div class="container">
+		<h2 class="sub_sbj">1:1문의하기</h2>
+
+		<div class="contents">
+			<ul class="option_list clearfix">
+				<li><a href="#n" class="current">1주일</a></li>
+				<li><a href="#n">1개월</a></li>
+				<li><a href="#n">3개월</a></li>
+				<li><a href="#n">6개월</a></li>
+			</ul>
+
+			<div class="calendar_wr">
+				<span class="input_sub pr5" style="width: 50%;">
+					<input type="text" name="" id="date_pckr_frt02" class="date_pckr_frt02 hasDatepicker" style="width: 79.2%;" size="10" readonly>
+						<img class="ui-datepicker-trigger" src="images/calendar.png" alt="calendar"/>
+				</span>
+
+				<span class="input_sub" style="width: 50%;">
+					<input type="text" name="" id="date_pckr_frt02" class="date_pckr_frt02 hasDatepicker" style="width: 79.2%;" size="10" readonly>
+						<img class="ui-datepicker-trigger" src="images/calendar.png" alt="calendar"/>
+				</span>
+			</div>
+
+			<!--<ul class="option_list2 clearfix">
+				<li>
+					<input type="text" value="17.06.28" readonly>
+					<span>부터</span>
+					<img src="images/calendar.png" alt="calendar"/>
+				</li>
+				<li>
+					<a href="#n">17.07.28
+					<span class="ot_c">까지</span>
+					<img src="images/calendar.png" alt="calendar"/>
+				</a>
+				</li>
+			</ul>-->
+
+			<div class="question clearfix">
+				<span class="tit">문의건수 5건</span>
+				<a href="2_sub_04_customer_03_qna_write.html" class="que">
+					<span class="btn">1:1 문의하기</span>
+				</a>
+			</div>
+
+
+			<div class="qna_list">
+				<h3 class="qna_title answer">
+					<span class="qna_cate">구매/판매</span>
+					<p class="title">미체결 주문은 어떻게 처리되나요?</p>
+					<p class="qna_day">17.09.21</p>
+				</h3>
+				<div class="qna_box">
+					<!-- <p>미체결주문은 직접 취소하기 전까지 주문이 유지됩니다.</p> -->
+				</div>
+				<h3 class="qna_title standBy">
+					<span class="qna_cate">구매/판매</span>
+					<p class="title">구매가 궁금해요</p>
+					<p class="qna_day">17.09.21</p>
+				</h3>
+				<div class="qna_box">
+					<p>캠퍼스 라이선스를 제외한 모든 라이선스는 구입하는 사용자 수가 많을수록 단위 가격이 저렴합니다. 자세한 가격 안내를 보시려면 제품 가격 안내 페이지를 참고하시기 바랍니다.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--// container -->
+	<script src="https://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+	<script type="text/javascript">
+	// jquery ui 아코디언
+	$( ".qna_list" ).accordion({
+		heightStyle: "content",
+		collapsible: true
+	})
+	</script>
+
+	<div class="footer sub">
+		<ul>
+			<li>한국암호화화폐거래소 주식회사</li>
+			<li>대표이사:오건</li>
+			<li>주소:서울특별시 광진구 천호대로 580, 1층(능동, 태평양빌딩)</li>
+			<li>통신판매업신고 : 제 XXXX-XXXX - XXXXX호&nbsp;/&nbsp;<a href="1_main_02_policy.html">이용약관</a>&nbsp;/&nbsp;<a href="1_main_03_personal.html">개인정보취급방침</a></li>
+			<li>E-mail : help@bitkrx.com&nbsp;/TEL : 1833-5734&nbsp;/&nbsp;FAX : 02-6933-5774</li>
+			<li>COPYRIGHT bitKRX Corporation. ALL RIGHTS RESERVED.</li>
+		</ul>
+	</div>
+
+</body>
+</html>
