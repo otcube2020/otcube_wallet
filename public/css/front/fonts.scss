@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'Century Gothic';
+    font-style: normal;
+    font-weight: 400;
+    src: local('CenturyGothicRegular'), local('CenturyGothicRegular'), url('../../fonts/CenturyGothicRegular.eot');
+    src: url('../../fonts/CenturyGothicRegular.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/CenturyGothicRegular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Century Gothic';
+    font-style: normal;
+    font-weight: 700;
+    src: local('CenturyGothicBold'), local('CenturyGothicBold'), url('../../fonts/CenturyGothicBold.eot');
+    src: url('../../fonts/CenturyGothicBold.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/CenturyGothicBold.woff') format('woff');
+}

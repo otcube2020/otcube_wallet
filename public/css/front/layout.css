@@ -1,0 +1,270 @@
+@charset "UTF-8";
+/*공용 변수*/
+/*공용 함수*/
+@import url(../../xeicon/xeicon.min.css);
+@font-face {
+  font-family: 'Century Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: local("CenturyGothicRegular"), local("CenturyGothicRegular"), url("../../fonts/CenturyGothicRegular.eot");
+  src: url("../../fonts/CenturyGothicRegular.eot?#iefix") format("embedded-opentype"), url("../../fonts/CenturyGothicRegular.woff") format("woff"); }
+
+@font-face {
+  font-family: 'Century Gothic';
+  font-style: normal;
+  font-weight: 700;
+  src: local("CenturyGothicBold"), local("CenturyGothicBold"), url("../../fonts/CenturyGothicBold.eot");
+  src: url("../../fonts/CenturyGothicBold.eot?#iefix") format("embedded-opentype"), url("../../fonts/CenturyGothicBold.woff") format("woff"); }
+
+/* reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+html, body {
+  height: 100%;
+  font-size: 10px; }
+  @media screen and (max-width: 640px) {
+    html, body {
+      font-size: 9px; } }
+
+body {
+  line-height: 1.2; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+img {
+  vertical-align: top; }
+
+a {
+  color: black;
+  text-decoration: none;
+  cursor: pointer; }
+
+* {
+  box-sizing: border-box; }
+
+body {
+  font-family: 'Century Gothic', 'Helvetica', sans-serif !important;
+  position: relative;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #333; }
+
+.wrapper {
+  position: relative;
+  height: 100%;
+  min-height: 100%; }
+
+/***** 공통 forms *****/
+/* placeholder */
+input::placeholder,
+textarea::placeholder {
+  color: #bfbfbf; }
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #bfbfbf; }
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: #bfbfbf; }
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  color: #bfbfbf; }
+
+/* input */
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="tel"] {
+  border: none;
+  border-bottom: 1px solid gainsboro;
+  outline: none; }
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; }
+
+textarea, select, input {
+  font-family: 'Century Gothic', 'Helvetica', sans-serif !important; }
+
+textarea {
+  border: 1px solid gainsboro;
+  padding: 0.625rem; }
+
+input.readonly {
+  background-color: #f4f3f3;
+  font-size: 14px;
+  font-weight: 400;
+  color: #666; }
+
+label {
+  display: inline-block;
+  margin: 0; }
+
+select {
+  border: 1px solid gainsboro;
+  padding: 0 11px;
+  width: 100px;
+  height: 33px;
+  line-height: 33px;
+  background: white url(../../images/front/ico_select_arr_gray.png) 90% 50% no-repeat;
+  background-size: 9px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  border-radius: 0.3rem;
+  background-clip: padding-box;
+  /* stops bg color from leaking outside the border: */ }
+  select option {
+    color: #333; }
+
+select::-ms-expand {
+  display: none;
+  /* 화살표 없애기 for IE10, 11*/ }
+
+/* animation */
+.horAni-1 {
+  transform: translate(-70px, 0);
+  opacity: 0; }
+
+.vertAni-1 {
+  transform: translate(0, -70px);
+  opacity: 0; }
+
+.horAni-on .horAni-1, .vertAni-on .vertAni-1 {
+  transform: translate(0, 0);
+  opacity: 1; }
+
+.horAni-on .delay-1, .vertAni-on .delay-1 {
+  transition: All 0.8s ease;
+  transition-delay: 0.1s; }
+
+.horAni-on .delay-2, .vertAni-on .delay-2 {
+  transition: All 0.8s ease;
+  transition-delay: 0.2s; }
+
+.horAni-on .delay-3, .vertAni-on .delay-3 {
+  transition: All 0.8s ease;
+  transition-delay: 0.3s; }
+
+.delay-4 {
+  transition: All 0.8s ease;
+  transition-delay: 0.4s; }
+
+.delay-5 {
+  transition: All 0.8s ease;
+  transition-delay: 0.5s; }
+
+/* header */
+header {
+   /* margin-top: 30px; */
+   /* padding: 0 1rem;
+   position: absolute;
+   top: 0;
+   left: 50%;
+   margin-left: -53rem; */
+   /* width: 106rem;
+   height: 10rem;
+   line-height: 13rem; */
+   margin-left: 6rem;
+   margin: 30px 0;
+   width: 100%;
+}
+.otq_logo{
+   margin-left: 6rem;
+   max-width: 250px;
+   height: 60px;
+}
+@media screen and (max-width: 1100px) {
+   header {
+      width: 100%;
+      /* left: 0; */
+      /* padding: 0 2rem; */
+      /* margin-left: 0; */
+   }
+}
+@media screen and (max-width: 960px) {
+   header {
+      margin: 0;
+      padding: 15px 0;
+      z-index: 45;
+      /* height: auto;
+      line-height: normal; */
+      /* background-color: rgba(255, 255, 255, 0.7); */
+   }
+   .otq_logo{
+      margin-left: 0;
+      max-width: 250px;
+   }
+   .logo_header{
+      padding: 0 1.5rem;
+   }
+}
+header h1 a.logo {
+   display: inline-block;
+   width: 7.4rem;
+   vertical-align: middle;
+}
+@media screen and (max-width: 960px) {
+   header h1 a.logo {
+      display: block;
+      padding: 3rem 0;
+      margin: 0 auto;
+   }
+}
+header h1 a.logo img {
+   display: block;
+   width: 100%;
+}
+header a.mobile_menu {
+   display: none;
+   position: absolute;
+   top: 0rem;
+   right: 2rem;
+   z-index: 45;
+   font-size: 3rem;
+}
+@media screen and (max-width: 960px) {
+   header a.mobile_menu {
+      display: block;
+      top: 2.4rem;
+   }
+}

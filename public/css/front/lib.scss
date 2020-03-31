@@ -1,0 +1,135 @@
+@charset "utf-8";
+
+/*공용 변수*/
+$link-color: rgb(9, 148, 228);
+$line-color: rgb(179, 179, 179);
+$default-color: rgb(0,0,0);
+$white-color: rgb(255,255,255);
+$body-color: rgb(110,110,110);
+$main-color: rgb(139,14,58);
+$sub-color: rgb(19,60,108);
+$point-color: rgb(0,117,255);
+$border-color: rgb(220,220,220);
+$border-color-Lv2: rgb(218,216,216);
+$background-color: rgb(243,243,243);
+$buy-bg-color: rgb(255,89,118);
+$sell-bg-color: rgb(64,127,255);
+$pagination-color: rgb(236,113,65);
+
+@mixin absPosition ($top: auto, $right: auto, $bottom: auto, $left: auto){
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+@mixin prefix($name, $value) {
+  -webkit-#{$name}: $value;
+  -moz-#{$name}: $value;
+  -ms-#{$name}: $value;
+  #{$name}: $value;
+}
+@mixin planbitGrad{
+	content: '';
+	position: absolute;
+	top: -3px;
+	left: 0;
+	width: 100%;
+	height: 3px;
+	background: -moz-linear-gradient(left, #3773a4 0%, #8a4381 100%);
+	background: -webkit-linear-gradient(left, #3773a4 0%, #8a4381 100%);
+	background: linear-gradient(to right, #3773a4 0%, #8a4381 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3773a4', endColorstr='#8a4381',GradientType=0 );
+}
+@mixin planbitGradBtn{
+	background: -moz-linear-gradient(left, #3773a4 0%, #8a4381 100%);
+	background: -webkit-linear-gradient(left, #3773a4 0%, #8a4381 100%);
+	background: linear-gradient(to right, #3773a4 0%, #8a4381 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3773a4', endColorstr='#8a4381',GradientType=0 );
+}
+@mixin inline-block{
+  display:inline-block;
+  *zoom:1;
+  *display:inline;
+}
+@mixin clear-both{
+  content:'';
+  clear:both;
+  display:block;
+  height:0;
+}
+@mixin hide-text{
+  text-indent: -9999px;
+  text-shadow:none;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;;
+}
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+@mixin gradient($from-color, $to-color) {
+    background-color: mix($from-color, $to-color); /* Fallback */
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($from-color), to($to-color));
+    background-image: -webkit-linear-gradient(top, $from-color, $to-color);
+    background-image:    -moz-linear-gradient(top, $from-color, $to-color);
+    background-image:     -ms-linear-gradient(top, $from-color, $to-color);
+    background-image:      -o-linear-gradient(top, $from-color, $to-color);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='$from-color', EndColorStr='$to-color')";
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+  background-clip: padding-box;  /* stops bg color from leaking outside the border: */
+}
+
+
+@mixin transition($property: all, $duration: 0.2s, $timing: linear) {
+  -webkit-transition: #{$property} $duration $timing;
+  -moz-transition: #{$property} $duration $timing;
+  -ms-transition: #{$property} $duration $timing;
+  transition: $property $duration $timing;
+}
+@mixin transform($type) {
+  -webkit-transform: $type;
+  -moz-transform: $type;
+  -ms-transform: $type;
+  transform: $type;
+}
+@mixin animation($name, $timing: 0.5s) {
+  -webkit-animation: $name $timing;
+  -moz-animation: $name $timing;
+  -ms-animation: $name $timing;
+}
+@mixin printTitle {
+  font-size: 30px !important;
+  letter-spacing: -3px;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+@mixin ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/*공용 함수*/
+@function black($opacity){
+    @return rgba(0,0,0,$opacity)
+}
+@function white($opacity){
+    @return rgba(255,255,255,$opacity)
+}
