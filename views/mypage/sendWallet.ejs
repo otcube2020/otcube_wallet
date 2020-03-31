@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<% include ../includes/header.ejs %>
+<body>
+
+<div class="wrapper">
+	<header>
+		<h1><a href="#n" class="logo"><img src="images/BI_GBT2.png"></a></h1>
+		<a href="#n" class="mobile_menu"><i class="xi-bars"></i></a>
+	</header>
+
+	<div class="sub_container send">
+    <!-- PC 지갑 부분 -->
+    <% include ./main_wallet.ejs %>
+
+		<div class="col right">
+			<div class="col_wrap">
+        <!-- pc 메뉴 -->
+				<% include ../includes/pc_menu.ejs %>
+				<div class="contents">
+					<h4>
+						Enter
+						<select>
+							<option>ETH</option>
+							<option>OTQ</option>
+						</select>
+						wallet addres & amount
+					</h4>
+					<div class="form">
+						<p class="insert">
+							<label>From Address</label>
+							<input type="text" name="" placeholder="Enter Wallet Address">
+							<small class="caution">The wallet address has not been entered.</small>
+						</p>
+						<p class="insert">
+							<label>To Address</label>
+							<% if (type == 1) { %>
+							<input type="text" name="" placeholder="Enter Wallet Address" value=''>
+							
+							<% } else if (type == 2) { %>
+							<input type="text" name="" placeholder="OTQ Token Address" >
+
+							    <% }>
+							<small class="caution">The wallet address has not been entered.</small>
+						</p>
+						<p class="insert">
+							<label>Amount</label>
+							<input type="number" name="" placeholder="Amount (number)">
+							<small class="caution">Token(coin) quantity not entered  </small>
+						</p>
+						<p class="insert">
+							<label>Transactions Fee</label>
+							<input type="text" name="" value="0.003 ~ 0.005" readonly="readonly">
+						</p>
+					</div>
+					<a href="#n" class="btn_submit btnPopNum1">Send</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Receive 팝업 -->
+<div class="popupWrap popReceive">
+	<div class="page_popup">
+		<a href="#n" class="btn_popClose"><i class="xi-close"></i></a>
+		<ul class="tabMenu">
+			<li class="wallet"><a href="#n">Wallet</a></li>
+			<li class="eth"><a href="#n">ETH</a></li>
+			<li class="gbt"><a href="#n">OTQ</a></li>
+		</ul>
+		<!-- 주소 생성 전 -->
+		<!-- <div class="tabCn wallet">
+			<div class="s_title">
+				<h3>Receive</h3>
+			</div>
+			<div class="contents receive_mo">
+				<h4>+ Click to create an address!</h4>
+				<div class="qrBox">
+					<i class="xi-plus"></i>
+				</div>
+				<p class="comment">
+					Click to generate the wallet address.
+				</p>
+			</div>
+		</div> -->
+		<!-- 주소 생성 후 -->
+		<div class="tabCn wallet">
+			<div class="s_title">
+				<h3>Receive</h3>
+			</div>
+			<div class="contents receive_mo">
+				<h4>Share your QR code or copy address to receive</h4>
+				<div class="qrBox clicked"><img src="images/front/img_qr.png"></div>
+				<a href="#n" class="btn_submit">
+					<i class="xi-share-alt"></i>
+					Share
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Send 팝업 -->
+<div class="popupWrap popSend">
+	<div class="page_popup">
+		<a href="#n" class="btn_popClose"><i class="xi-close"></i></a>
+		<ul class="tabMenu">
+			<li class="wallet"><a href="#n">Wallet</a></li>
+			<li class="eth"><a href="#n">ETH</a></li>
+			<li class="gbt"><a href="#n">OTQ</a></li>
+		</ul>
+		<div class="tabCn wallet">
+			<dl class="amount">
+				<dt>Ethereum</dt>
+				<dd><span>0.124674</span>ETH</dd>
+			</dl>
+			<div class="s_title">
+				<h3>Send</h3>
+				<small>Enter ETH wallet address & amount</small>
+			</div>
+			<div class="contents send_mo">
+				<div class="form">
+					<p class="insert">
+						<label>From Address</label>
+						<input type="text" name="" placeholder="Enter Wallet Address">
+						<small class="caution">The wallet address has not been entered.</small>
+					</p>
+					<p class="insert">
+						<label>To Address</label>
+						<% if (type == 1) { %>
+						<input type="text" name="" placeholder="Enter Wallet Address" value=''>
+						 <% } else if (type == 2) { %>
+						 <input type="text" name="" placeholder="Enter Wallet Address" value=''>
+                                                 <% } %>
+						<small class="caution">The wallet address has not been entered.</small>
+					</p>
+					<p class="insert">
+						<label>Amount</label>
+						<input type="number" name="" placeholder="Amount (number)">
+						<small class="caution">Token(coin) quantity not entered  </small>
+					</p>
+					<p class="insert">
+						<label>Transactions Fee</label>
+						<input type="text" name="" value="0.003 ~ 0.005" readonly="readonly">
+					</p>
+				</div>
+				<a href="#n" class="btn_submit btnPopNum1">Send</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 코인 OR 토큰 전송 유/무 팝업 -->
+<div class="popupWrap popNum1">
+	<div class="popup">
+		<div class="popup_top">
+			<h3>Do you want to send it?</h3>
+			<a href="#n" class="btn_popClose"><i class="xi-close-thin"></i></a>
+		</div>
+		<div class="popup_mid">
+			<p>Do you want to send it to the appropriate wallet address?</p>
+			<ul class="dot_list">
+				<li>
+					<dl>
+						<dt>Token(Coin) Type</dt>
+						<dd>ETH(Ethereum)</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Wallet Address</dt>
+						<dd>0xc38ea2457d2eaa4ebfbf6b4208b0d328fabc67a0</dd>
+					</dl>
+				</li>
+			</ul>
+		</div>
+		<div class="popup_bttm">
+			<ul class="col-2">
+				<li><a href="#n" class="btn_submit btnPopNum2">OK</a></li>
+				<li><a href="#n" class="btn_line">Cancel</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- 전송 완료 팝업 -->
+<div class="popupWrap popNum2">
+	<div class="popup">
+		<div class="popup_top">
+			<h3>Transaction Complete</h3>
+			<a href="#n" class="btn_popClose"><i class="xi-close-thin"></i></a>
+		</div>
+		<div class="popup_mid">
+			<p>Transfer completed.</p>
+			<p>Please refer to Ethercan for availability and duty of transmission.</p>
+		</div>
+		<div class="popup_bttm">
+			<ul class="col-1">
+				<li><a href="#n" class="btn_submit">OK</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+<!-- mobile 슬라이딩 메뉴 -->
+<div class="popupWrap_2 popMenu">
+	<div class="popup">
+		<a href="#n" class="btn_popClose"><i class="xi-close"></i></a>
+		<ul class="mobile_menu">
+			<li><a href="profile.html">Profile</a></li>
+			<li><a href="transaction.html">Transaction</a></li>
+		</ul>
+		<a href="#n" class="btn_logout">LOGOUT</a>
+	</div>
+</div>
+
+</body>
+</html>

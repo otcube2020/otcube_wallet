@@ -1,0 +1,78 @@
+
+<!-- 로그인 임시 비밀번호 전송 완료 팝업 -->
+<!-- 회원가입 완료 팝업 -->
+<div class="popupWrap popNum1">
+	<div class="popup" id="imgpopup">
+		<div class="popup_top" >
+			<h3 id="papup_top_h3"></h3>
+			<a href="#n" class="btn_popClose"><i class="xi-close-thin"></i></a>
+		</div>
+		<div id="popup_mid_div" class="popup_mid">
+      <p></p>
+		</div>
+		<div class="popup_bttm">
+			<ul class="col-1">
+				<li><a id="popup1_submit" href="#n" class="btn_submit">OK</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- 패스워드 수정 완료 팝업 -->
+<div class="popupWrap popNum2">
+	<div class="popup">
+		<div class="popup_top">
+			<h3>Password Modify Complete</h3>
+			<a href="#n" class="btn_popClose"><i class="xi-close-thin"></i></a>
+		</div>
+		<div class="popup_mid">
+			<p>The deposit address has been copied.</p>
+		</div>
+		<div class="popup_bttm">
+			<ul class="col-1">
+				<li><a href="#n" class="btn_submit">OK</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+	<!-- <div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>
+	<div id='loadingImg' style='position:absolute; left:50%; top:40%; display:none; z-index:10000;'>
+		<img src='/images/viewLoading.gif'/>
+	</div> -->
+<script type="text/javascript">
+function wrapWindowByMask() {
+    //화면의 높이와 너비를 구한다.
+    var maskHeight = $(document).height();
+//      var maskWidth = $(document).width();
+    var maskWidth = window.document.body.clientWidth;
+
+    var mask = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";
+    var loadingImg = '';
+
+    loadingImg += "<div id='loadingImg' style='position:absolute; left:50%; top:40%; display:none; z-index:10000;'>";
+    loadingImg += " <img src='/images/viewLoading.gif'/>";
+    loadingImg += "</div>";
+
+    //화면에 레이어 추가
+    $('body')
+        .append(mask)
+        .append(loadingImg)
+
+    //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+    $('#mask').css({
+            'width' : maskWidth
+            , 'height': maskHeight
+            , 'opacity' : '0.3'
+    });
+
+    //마스크 표시
+    $('#mask').show();
+
+    //로딩중 이미지 표시
+    $('#loadingImg').show();
+}
+
+function close_popup(){
+	$('.popNum1').fadeOut();
+}
+</script>

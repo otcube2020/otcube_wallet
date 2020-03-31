@@ -1,0 +1,91 @@
+<div class="col left">
+  <div class="col_wrap">
+    <dl class="total_balance">
+      <dt>Total OTQ Balance</dt>
+      <dd class="btn_tooltip" style="cursor: pointer;">
+        <span>0.00</span>USD
+        <div class="tooltip">
+          <img src="/images/front/img_arr_comment.png" class="img_arr">
+          <dl>
+            <dt>COMING SOON!</dt>
+            <dd>Once listed on the exchange, the balance of OTQToken is applied</dd>
+          </dl>
+        </div>
+      </dd>
+    </dl>
+    <div class="user">
+      <a href="/mypage/logout" class="btn_logout">LOGOUT</a>
+      <p class="user_email"><%= user %></p>
+    </div>
+    <div class="coins">
+      <h5>COINS</h5>
+      <div class="coinBox eth">
+        <p class="c_title">
+          <img src="/images/front/coin/eth.png">
+          Ethereum
+        </p>
+        <div class="btns">
+          <a href="#n" class="btn_receive btnPopReceive">
+            <i class="xi-arrow-down"></i>
+            Receive
+          </a>
+          <a href="#n" class="btn_send btnPopSend ethPopSend">
+            <i class="xi-arrow-up"></i>
+            Send
+          </a>
+        </div>
+        <p class="amount">
+          <span id="spanEthBal"><%= eth_balance %></span>
+          ETH
+        </p>
+        <ul class="data">
+          <li>
+            <dl>
+              <dt>Bitcoin</dt>
+              <dd><span id="usdtBitcoin"><em>0.00</em>$</span></dd>
+            </dl>
+          </li>
+          <li>
+            <dl>
+              <dt>Ethereum</dt>
+              <dd>
+                <small>poloniex</small>
+                <span class="down" id="usdtEthereum"><em>0.00</em>$</span>
+              </dd>
+            </dl>
+          </li>
+        </ul>
+      </div>
+      <div class="coinBox gbt">
+        <p class="c_title">
+          <img src="/images/otcube_symbol.png">
+          OTQ Token
+        </p>
+        <div class="btns">
+          <a href="#n" class="btn_receive btnPopReceive">
+            <i class="xi-arrow-down"></i>
+            Receive
+          </a>
+          <a href="#n" class="btn_send btnPopSend gbtPopSend">
+            <i class="xi-arrow-up"></i>
+            Send
+          </a>
+        </div>
+        <p class="amount">
+          <span id="spanTknBal"><%= token_balance %></span>
+          OTQ
+        </p>
+        <ul class="data">
+          <li>
+            <dl>
+              <dt>OTQ Token</dt>
+              <dd>
+                <span class="up"><em>0.00</em>$</span>
+              </dd>
+            </dl>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

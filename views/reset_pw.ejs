@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<title>OTQ Wallet </title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+	<link rel="stylesheet" type="text/css" href="css/front/layout.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/front/contents.css" media="all" />
+
+	<script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script>
+	<script type="text/javascript" src="js/front/global.js"></script>
+	<!-- <script type="text/javascript" src="js/front/jquery.modal.min.js"></script> -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+
+<div class="wrapper">
+	<div class="container forgot_pw">
+		<header>
+			<div>
+				<a href="#n" class="logo">
+					<img src="images/otcube_logo-02.png" style="width: 250px;height: 60px;">
+				</a>
+			</div>
+		</header>
+		<div class="left">
+			<ul class="menu">
+				<li><a href="/reset_pw" class="current">SIGN UP</a></li>
+				<li><a href="/login" >LOG IN</a></li>
+			</ul>
+			<div class="s_title">
+				<h2>Ooops! forgot password?</h2>
+				<p>Please enter your email address</p>
+			</div>
+			<div class="form">
+				<p class="insert">
+					<label>E-mail ID</label>
+					<input type="email" id="email_id"  placeholder="E-mail">
+					<!-- <small class="caution">Invalid wallet ID</small> -->
+				</p>
+			</div>
+			<a href="javascript:void(0);" id="resetBtnPopNum1" class="btn_submit">Reset Password</a>
+		</div>
+		<div class="right">
+			<!-- <img src="images/front/bg_login.png"> -->
+		</div>
+	</div>
+</div>
+
+<% include ./includes/footer.ejs %>
+</body>
+
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript">
+var checkCaptch = false;
+var verifyCallback = function(response) {
+	//alert(response);
+  if (response == "") {
+       checkCaptch = false;
+   }
+   else {
+       checkCaptch = true;
+   }
+};
+
+var isReset = false;
+$(document).ready(function(){
+
+	$('#resetBtnPopNum1').click(function(){
+		console.log("email send");
+		if($("#email_id").val() == "") {
+			alert("Email Address required ");
+			$("#papup_top_h3").text( "Reset email sent FAIL");
+			$('#popup_mid_div').empty();
+			$('#popup_mid_div').append('<p>Email Address required  </p>');
+			$('#popup1_submit').attr('href','javascript:close_popup();');
+			$('.popNum1').show();
+			return;
+		}
+
+		if(!validateEmail($("#email_id").val())) {
+			$("#papup_top_h3").text( "Reset email sent FAIL");
+			$('#popup_mid_div').empty();
+			$('#popup_mid_div').append('<p>Lost your User email ID or password? </p>');
+			$('#popup_mid_div').append('<p>All we need is your e-mail address and we will send you a new one.</p>');
+			$('#popup1_submit').attr('href','javascript:close_popup();');
+			$('.popNum1').show();
+
+			return;
+		}
+		//메일 세팅 전까지 메일 세팅되면 아래 주속 해제
+		//alert("메일 정보주세요")
+		wrapWindowByMask();
+		fnMailAjax();
+  })
+});
+
+function fnMailAjax() {
+	$.ajax({
+		url: '/mailsender',                //주소
+			dataType: 'json',                  //데이터 형식
+			type: 'POST',                      //전송 타입
+			data: {'email_id':$('#email_id').val()},      //데이터를 json 형식, 객체형식으로 전송
+			success: function(result) {          //성공했을 때 함수 인자 값으로 결과 값 나옴
+				$('#mask, #loadingImg').hide();
+				$('#mask, #loadingImg').remove();
+				console.log(result['result']);
+				if ( result['result'] == true ) {
+					console.log("mail send success")
+					isReset = true;
+					$("#papup_top_h3").text( "Reset email sent complete");
+					$('#popup_mid_div').empty();
+					$('#popup_mid_div').append('<p>The e-mail has been successfully sent.</p>');
+					$('#popup_mid_div').append('<p>Please log in after applying the temporary password sent.</p>');
+					$('#popup_mid_div').append('<p>(Required) You must change your password after logging in.</p>');
+
+					$('#popup1_submit').attr('href','/login');
+					$('.popNum1').show();
+
+				} else {
+					$("#papup_top_h3").text( "Reset email sent FAIL");
+					$('#popup_mid_div').empty();
+					$('#popup_mid_div').append('<p>Failed to send mail.</p>');
+					$('#popup1_submit').attr('href','javascript:close_popup();');
+					$('.popNum1').show();
+				}
+			},error: function(XMLHttpRequest, textStatus, errorThrown) {
+					$("#commMsg").text(textStatus);
+
+			}    //function끝
+	});
+}
+
+</script>
+</html>

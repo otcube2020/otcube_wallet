@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ko">
+<% include ../includes/header.ejs %>
+
+<body>
+
+<div class="wrapper">
+	<!-- <header>
+		<h1><a href="#n" class="logo"><img src="/images/BI_CUBE.png" style="width:50px; height:50px;"></a></h1>
+		<a href="#n" class="mobile_menu"><i class="xi-bars"></i></a>
+	</header> -->
+    <% if ( type == 0) { %>
+	<div class="sub_container receive">
+    <%} else { %>
+    <div class="sub_container send">
+    <%} %>
+	 <header>
+		 <div class="logo_header" style="display:flex; align-items:center; justify-content:space-between;">
+			 <a href="#n" class="logo">
+				 <img src="../../images/otcube_logo-02.png" class="otq_logo" style="">
+			 </a>
+		 </div>
+		 <a href="#n" class="mobile_menu" style="top:1.5rem;"><i class="xi-bars"></i></a>
+	 </header>
+     <% include ./main_wallet.ejs %>
+     <div class="col right">
+         <div class="col_wrap">
+             <!-- pc 메뉴 -->
+             <% include ../includes/pc_menu.ejs %>
+             <div class="contents">
+
+                 <% if ( type == 0) {  %>
+                     <% if( address == "") { %>
+                         <h4>+ Click to create an address!</h4>
+                     <%} else {%>
+                         <h4>+ Share your QR code or copy address to receive</h4>
+                     <%} %>
+
+                 <div id="qrcode1" class="qrBox">
+                     <% if( address == "") { %> <!-- 주소 생성 전 -->
+                     <a href="javascript:fnCreateWallet()"><i class="xi-plus"></i></a>
+                     <%}%>
+                 </div>
+                 <p class="comment">
+                     <% if( address == "") { %> <!-- 주소 생성 전 -->
+                     <img src="/images/front/img_arr_comment.png">
+                     Click to generate the wallet address.
+                     <%} else {%>
+                         <%= address %> <br><a href="#n" class="btn_link clicpboard clicpboard2">Copy</a>
+                     <%} %>
+                 </p>
+                 <%} else if ( type == 1 || type ==2) { %>
+                     <h4>
+                         Enter
+                         <select id="select_coinInfo">
+                             <option value="ETH">ETH</option>
+                             <option value="OTQ">OTQ</option>
+                         </select>
+                         wallet addres & amount
+                     </h4>
+                     <div class="form">
+                         <p class="insert">
+                             <label>From Address</label>
+                             <input type="text" name="from" id="from"  placeholder="Enter Wallet Address">
+                             <!-- <small class="caution">The wallet address has not been entered.</small> -->
+                         </p>
+                         <p class="insert">
+                             <label>To Address</label>
+                             <input type="text" name="to" id="to" placeholder="Enter Wallet Address" >
+                             <!-- <small class="caution">The wallet address has not been entered.</small> -->
+                         </p>
+                         <p class="insert">
+                             <label>Amount</label>
+                             <input type="number" name="amt" id="amt" placeholder="Amount (number)">
+                             <!-- <small class="caution">Token(coin) quantity not entered  </small> -->
+                         </p>
+                         <p class="insert">
+                             <label>Transactions Fee</label>
+                             <input type="text" name="" value="0.003 ~ 0.005" readonly="readonly" >
+                         </p>
+                     </div>
+                     <a href="javascript:fnSendTx();" class="btn_submit btnPopNum1">Send</a>
+                 <%} else { %>
+                 <h4>
+                     OTQ Buy wallet addres & amount
+                 </h4>
+                 <div class="form">
+                     <p class="insert">
+                         <label>From Address</label>
+                         <input type="text" name="from" id="ofrom"  placeholder="Enter Wallet Address">
+                         <!-- <small class="caution">The wallet address has not been entered.</small> -->
+                     </p>
+                     <p class="insert">
+                         <label>To Address</label>
+                         <input type="text" name="to" id="oto" placeholder="Enter Wallet Address" >
+                         <!-- <small class="caution">The wallet address has not been entered.</small> -->
+                     </p>
+                     <p class="insert">
+                         <label>Amount</label>
+                         <input type="number" name="amt" id="oamt" placeholder="Amount (number)">
+                         <!-- <small class="caution">Token(coin) quantity not entered  </small> -->
+                     </p>
+                     <p class="insert">
+                             <label>OTQ RATE</label>
+                             <input type="text" name="" value="1:<%=rate%>" readonly="readonly" >
+                         </p>
+                     <p class="insert">
+                         <label>Transactions Fee</label>
+                         <input type="text" name="" value="0.003 ~ 0.005" readonly="readonly" >
+                     </p>
+                 </div>
+                 <a href="javascript:fnSendTx('BUY');" class="btn_submit btnPopNum1">Send</a>
+
+                 <% } %>
+
+             </div>
+
+
+         </div>
+     </div>
+ </div>
+</div>
+
+<!-- Receive 팝업 -->
+<div class="popupWrap popReceive">
+ <div class="page_popup">
+     <a href="#n" class="btn_popClose"><i class="xi-close"></i></a>
+     <ul class="tabMenu">
+         <li class="wallet"><a href="#n">Wallet</a></li>
+     </ul>
+
+     <div class="tabCn wallet">
+         <div class="s_title">
+             <h3>Receive</h3>
+         </div>
+         <div class="contents receive_mo">
+                 <% if( address == "") { %>
+                     <h4>+ Click to create an address!</h4>
+                 <%} else {%>
+                     <h4>+ Share your QR code or copy address to receive</h4>
+                 <%} %>
+
+             <div id="qrcode2" class="qrBox">
+                 <% if( address == "") { %> <!-- 주소 생성 전 -->
+                 <a href="javascript:fnCreateWallet()" ><i class="xi-plus"></i></a>
+                 <%}%>
+             </div>
+             <p class="comment">
+                 <% if( address == "") { %> <!-- 주소 생성 전 -->
+                 Click to generate the wallet address.
+                 <%} else {%>
+                     <%= address %> <br><a href="#n" class="btn_link clicpboard clicpboard2">Copy</a>
+                 <%} %>
+             </p>
+         </div>
+     </div>
+
+ </div>
+</div>
+
+<!-- Send 팝업 -->
+<div class="popupWrap popSend">
+ <div class="page_popup">
+     <a href="#n" class="btn_popClose"><i class="xi-close"></i></a>
+     <ul class="tabMenu">
+         <li class="eth"><a href="javascript:fnMblEthSend();">ETH</a></li>
+         <li class="gbt"><a href="javascript:fnMblGbtSend();">OTQ</a></li>
+         <li class="buy"><a href="javascript:fnMblBuySend();">BUY</a></li>
+     </ul>
+     <div class="tabCn eth">
+         <dl class="amount">
+             <dt id="dtCoinSend">Ethereum</dt>
+             <dd id="ddCoinSend"><span><%= eth_balance %></span>ETH</dd>
+         </dl>
+         <div class="s_title">
+             <h3>Send</h3>
+             <small id="smallCoinSend">Enter ETH wallet address & amount</small>
+         </div>
+         <div class="contents send_mo">
+             <div class="form">
+                 <p class="insert">
+                     <label>From Address</label>
+                     <input type="text" id="from1" placeholder="Enter Wallet Address">
+                     <!-- <small class="caution">The wallet address has not been entered.</small> -->
+                 </p>
+                 <p class="insert">
+                     <label>To Address</label>
+                     <input type="text" id="to1" value="" placeholder="Enter Wallet Address" value=''>
+                     <!-- <small class="caution">The wallet address has not been entered.</small> -->
+                 </p>
+                 <p class="insert">
+                     <label>Amount</label>
+                     <input type="number" id="amt1" value="" placeholder="Amount (number)">
+                     <!-- <small class="caution">Token(coin) quantity not entered  </small> -->
+                 </p>
+                 <p class="insert" style="display:none" id="rateView">
+                     <label>Rate</label>
+                     <input type="text" id="amt1" value="1:<%=rate%>" readonly="readonly" >
+                     <!-- <small class="caution">Token(coin) quantity not entered  </small> -->
+                 </p>
+
+                 <p class="insert">
+                     <label>Transactions Fee</label>
+                     <input type="text" name="" value="0.003 ~ 0.005" readonly="readonly">
+                 </p>
+             </div>
+             <a href="javascript:fnSendTx('M')" class="btn_submit btnPopNum1">Send</a>
+         </div>
+     </div>
+ </div>
+</div>
+
+<!-- 코인 OR 토큰 전송 유/무 팝업 -->
+<div class="popupWrap popNum_send">
+ <div class="popup">
+     <div class="popup_top">
+         <h3>Do you want to send it?</h3>
+         <a href="#n" class="btn_popClose"><i class="xi-close-thin"></i></a>
+     </div>
+     <div class="popup_mid">
+         <p>Do you want to send it to the appropriate wallet address?</p>
+         <ul class="dot_list">
+             <li>
+                 <dl>
+                     <dt>Token(Coin) Type</dt>
+                     <dd id="coinInfo">ETH(Ethereum)</dd>
+                 </dl>
+             </li>
+             <li>
+                 <dl>
+                     <dt>Wallet To Address</dt>
+                     <dd id="coinTo"></dd>
+                 </dl>
+             </li>
+         </ul>
+     </div>
+     <div class="popup_bttm">
+         <ul class="col-2">
+             <li><a href="javascript:fnRealSend();" class="btn_submit">OK</a></li>
+             <li><a href="javascript:$('.popNum_send').hide();" class="btn_line">Cancel</a></li>
+         </ul>
+     </div>
+ </div>
+</div>
+
+<!-- 전송 완료 팝업 -->
+<div class="popupWrap popNum_sendComplete">
+ <div class="popup">
+     <div class="popup_top">
+         <h3>Transaction Complete</h3>
+         <a href="#n" class="btn_popClose"><i class="xi-close-thin"></i></a>
+     </div>
+     <div class="popup_mid">
+         <p>Transfer completed.</p>
+         <p>Please refer to Ethercan for availability and duty of transmission.</p>
+     </div>
+     <div class="popup_bttm">
+         <ul class="col-1">
+             <li><a href="javascript:fnSendComplete();" class="btn_submit">OK</a></li>
+         </ul>
+     </div>
+ </div>
+</div>
+
+
+<!-- mobile 슬라이딩 메뉴 -->
+<% include ../includes/mobile_menu.ejs %>
+
+<% include ../includes/footer.ejs %>
+
+<input type="hidden" id="pageType" value="<%=type%>" />
+<input type="hidden" id="sendType" value="" />
+
+<input type="hidden" id="wallet" value="<%= address %>" />
+<input type="hidden" id="eth_balance" value="<%= eth_balance %>" />
+<input type="hidden" id="token_balance" value="<%= token_balance %>" />
+<input type="hidden" id="email_id" value="<%= user %>" />
+<!--모바일용 팝업 구분 코드-->
+<input type="hidden" id="popuptype" value="" />
+</body>
+
+<script src='/js/qrcode.min.js'></script>
+<script src='/js/poloniexAPI.js'></script>
+<script type="text/javascript">
+
+function fnNewQrcode(id) {
+ return new QRCode(document.getElementById(id), {
+     text: "http://jindo.dev.naver.com/collie",
+     width: 128,
+     height: 128,
+     colorDark : "#000000",
+     colorLight : "#ffffff",
+     correctLevel : QRCode.CorrectLevel.H
+ });
+}
+
+function m_menu_close(){
+  $('.popupWrap_2').css('display', 'none');
+}
+
+$(document).ready(function(){
+ fnSetSendType();
+
+ //잔액 자리수 찍기
+ $('#spanEthBal').text(setComma($('#spanEthBal').text()))
+ $('#spanTknBal').text(setComma($('#spanTknBal').text()))
+
+ if ($('#sendType').val() == 'E') {
+     $('#select_coinInfo').val('ETH');
+     fnMblEthSend();
+ } else if ($('#sendType').val() == 'T') {
+     $('#select_coinInfo').val('OTQ');
+     fnMblGbtSend();
+ } else if ($('#sendType').val() == 'B') {
+     fnMblBuySend();
+     $('#oto').val('0x0000000000000000000000000000000000000000');
+     $('#to1').val('0x0000000000000000000000000000000000000000');
+ }
+
+ $('#select_coinInfo').change(function (){
+     $( "#select_coinInfo option:selected" ).each(function() {
+         if ($('#select_coinInfo').val() == 'ETH') {
+             location.href = '/mypage/my_wallet?type=1';
+window.Android.call_href('/mypage/my_wallet?type=1')
+         } else if ($('#select_coinInfo').val() == 'OTQ') {
+             location.href = '/mypage/my_wallet?type=2';
+window.Android.call_href('/mypage/my_wallet?type=2')
+         }
+     });
+ });
+
+ if($("#wallet").val() != "") {
+     poloniex();
+     //PC에서 진행시
+     $('#from').val($("#wallet").val());
+     $('#ofrom').val($("#wallet").val());
+     //모바일 팝업으로 진행시
+     $('#from1').val($("#wallet").val());
+
+     fnSetSendType();
+    if($('#sendType').val() == "") {
+         fnNewQrcode("qrcode2").makeCode($("#wallet").val());
+         fnNewQrcode("qrcode1").makeCode($("#wallet").val());
+     }
+ }
+
+ $('a.ethPopSend').click(function(){
+     //모바일 팝업 구분 코드
+     $('#popuptype').val('M');
+     fnMblEthSend();
+     poloniex();
+ })
+
+ $('a.gbtPopSend').click(function(){
+     //모바일 팝업 구분 코드
+     $('#popuptype').val('M');
+     fnMblGbtSend();
+     poloniex();
+ })
+
+ $('.clicpboard2').click(function() {
+
+     copyToClipboard($("#wallet").val().trim());
+     $("#papup_top_h3").text( "The deposit address has been copied.");
+     $('#popup_mid_div').empty();
+     $('.popNum1').show();
+     $('#popup1_submit').attr('href','javascript:close_popup();');
+ });
+
+});
+
+function fnSetSendType(){
+ if ($('#pageType').val() == "1") {
+     $("#sendType").val("E");
+ } else if ($('#pageType').val() == "2") {
+     $("#sendType").val("T");
+ } else if ($('#pageType').val() == "3") {
+     $("#sendType").val("B");
+ } else if ($('#pageType').val() == "3y") {
+     $("#sendType").val("B");
+     $('a.ethPopSend').click();
+ }else {
+     $("#sendType").val("");
+ }
+}
+
+//지갑생성
+function fnCreateWallet() {
+ wrapWindowByMask();
+ $.ajax({
+     url: '/create_wallet',                //주소
+         dataType: 'json',                  //데이터 형식
+         type: 'POST',                      //전송 타입
+         data: {},      //데이터를 json 형식, 객체형식으로 전송
+         success: function(data) {          //성공했을 때 함수 인자 값으로 결과 값 나옴
+             console.log(data)
+           if ( data.result == true ) {
+
+             location.reload();
+             window.Android.call_reload();
+             } else {
+                 console.log("fail")
+
+                 $('#mask, #loadingImg').hide();
+                  $('#mask, #loadingImg').remove();
+             }
+         },error: function(XMLHttpRequest, textStatus, errorThrown) {
+             $("#papup_top_h3").text( "New Wallet Address FAIL");
+             $('#popup_mid_div').empty();
+             $('#popup_mid_div').append('<p>'+errorThrown+'</p>');
+             $('#popup1_submit').attr('href','javascript:close_popup();');
+             $('.popNum1').show();
+
+             $('#mask, #loadingImg').hide();
+              $('#mask, #loadingImg').remove();
+   }    //function끝
+ }); // ------      ajax 끝-----------------
+}
+
+function fnSendTx(sendInfo) {
+ var isCheck = false;
+ //팝업에서 전송 진행시
+ if( sendInfo == 'M') {
+     if($("#from1").val() == "") isCheck = true;
+     if($("#to1").val() == "") isCheck = true;
+     if($("#amt1").val() == "") isCheck = true;
+
+     $('#coinTo').text($('#to1').val());
+ } else if( sendInfo == 'BUY') {
+     if($("#ofrom").val() == "") isCheck = true;
+     if($("#oto").val() == "") isCheck = true;
+     if($("#oamt").val() == "") isCheck = true;
+
+     $('#coinTo').text($('#oto').val());
+ } else {
+     if($("#from").val() == "") isCheck = true;
+     if($("#to").val() == "") isCheck = true;
+     if($("#amt").val() == "") isCheck = true;
+
+     $('#coinTo').text($('#to').val());
+ }
+
+ if(isCheck) {
+     $("#papup_top_h3").text( "Required parameters");
+     $('#popup_mid_div').empty();
+     $('#popup_mid_div').append('<p>No incoming address has been entered.</p>');
+     $('#popup1_submit').attr('href','javascript:close_popup();');
+     $('.popNum1').show();
+
+     return;
+ }
+
+ if ($('#sendType').val() == 'E') {
+     $('#coinInfo').text('ETH(Ethereum)');
+ } else if ($('#sendType').val() == 'T') {
+     $('#coinInfo').text('OTQ(Token)');
+ } else if ($('#sendType').val() == 'B') {
+     $('#coinInfo').text('Buy OTQ');
+ } else {
+     $("#papup_top_h3").text( "Required parameters");
+     $('#popup_mid_div').empty();
+     $('#popup_mid_div').append('<p>Coin(Token) Type Error</p>');
+     $('#popup1_submit').attr('href','javascript:close_popup();');
+     $('.popNum1').show();
+     return;
+ }
+
+ $('.popNum_send').show();
+
+}
+
+function fnRealSend() {
+ wrapWindowByMask();
+
+ var _from = $("#from").val();
+ var _to = $("#to").val();
+ var _amt = $("#amt").val();
+
+ if($('#sendType').val() == 'B') {
+
+     _from = $("#ofrom").val();
+     _to = $("#oto").val();
+     _amt = $("#oamt").val();
+ }
+
+ if($('#popuptype').val() == 'M') {
+     _from = $("#from1").val();
+     _to = $("#to1").val();
+     _amt = $("#amt1").val();
+ }
+
+ $.ajax({
+     url: '/mypage/send_tx',                //주소
+         dataType: 'json',                  //데이터 형식
+         type: 'POST',                      //전송 타입
+         data: {
+             from : _from,
+             to 	 : _to,
+             amt	 : _amt,
+             sendType : $('#sendType').val()   //이더, 토큰 구분
+         },      //데이터를 json 형식, 객체형식으로 전송
+         success: function(result) {          //성공했을 때 함수 인자 값으로 결과 값 나옴
+             if ( result['result'] == true ) {
+
+                 $('#mask, #loadingImg').hide();
+                 $('#mask, #loadingImg').remove();
+
+                 // $("#papup_top_h3").text( "transmission processing");
+                 // $('#popup_mid_div').empty();
+                 // $('#popup_mid_div').append('<p>tx : '+result['message']+'</p>');
+                 // $('#popup1_submit').attr('href','javascript:close_popup();');
+                 $('.popNum_sendComplete').show();
+
+             } else {
+
+                 $('#mask, #loadingImg').hide();
+                 $('#mask, #loadingImg').remove();
+
+                 $("#papup_top_h3").text( "transmission processing Fail");
+                 $('#popup_mid_div').empty();
+                 $('#popup_mid_div').append('<p>tx : '+result['message']+'</p>');
+                 $('#popup1_submit').attr('href','javascript:close_popup();');
+                 $('.popNum1').show();
+             }
+         },error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+                 $('#mask, #loadingImg').hide();
+                 $('#mask, #loadingImg').remove();
+
+                 $("#papup_top_h3").text( "transmission processing Fail");
+                 $('#popup_mid_div').empty();
+                 $('#popup_mid_div').append('<p>tx : '+errorThrown+'</p>');
+                 $('#popup1_submit').attr('href','javascript:close_popup();');
+                 $('.popNum1').show();
+
+   }    //function끝
+ }); // ------      ajax 끝-----------------
+}
+
+//전송완료
+function fnSendComplete() {
+ location.reload();
+window.Android.call_reload();
+ //$('.popNum_sendComplete').hide();
+ //$('.popNum_send').hide();
+}
+
+//화면 축소시 혹은 팝업으로 전송시 ETh
+function fnMblEthSend() {
+ $('.page_popup .tabCn').removeClass().addClass('tabCn eth');
+ $('#dtCoinSend').text('Ethereum');
+ $('#ddCoinSend').empty();
+ $('#ddCoinSend').append('<span>'+$('#eth_balance').val()+'</span>ETH');
+ $('#sendType').val('E');
+ $('#smallCoinSend').text('Enter ETH wallet address & amount');
+ $('#to1').val('');
+ $('#rateView').hide();
+}
+
+function fnMblGbtSend() {
+ $('.page_popup .tabCn').removeClass().addClass('tabCn gbt');
+ $('#dtCoinSend').text('OTQ');
+ $('#ddCoinSend').empty();
+ $('#ddCoinSend').append('<span>'+$('#token_balance').val()+'</span>OTQ');
+ $('#sendType').val('T');
+ $('#smallCoinSend').text('Enter OTQ wallet address & amount');
+ $('#to1').val('');
+ $('#rateView').hide();
+}
+
+function fnMblBuySend() {
+ $('.page_popup .tabCn').removeClass().addClass('tabCn buy');
+ $('#dtCoinSend').text('Ethereum');
+ $('#ddCoinSend').empty();
+ $('#ddCoinSend').append('<span>'+$('#eth_balance').val()+'</span>ETH');
+ $('#sendType').val('B');
+ $('#smallCoinSend').text('Buy Token wallet address & amount');
+ $('#rateView').show();
+ $('#to1').val('0x0000000000000000000000000000000000000000');
+}
+
+
+function copyToClipboard(val) {
+ var el = document.createElement('textarea');
+ el.value = val;
+ el.setAttribute('readonly', '');
+ el.style = {position: 'absolute', left: '-9999px'};
+ document.body.appendChild(el);
+
+ if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+
+     // save current contentEditable/readOnly status
+     var editable = el.contentEditable;
+     var readOnly = el.readOnly;
+
+     // convert to editable with readonly to stop iOS keyboard opening
+     el.contentEditable = true;
+     el.readOnly = true;
+
+     // create a selectable range
+     var range = document.createRange();
+     range.selectNodeContents(el);
+
+     // select the range
+     var selection = window.getSelection();
+     selection.removeAllRanges();
+     selection.addRange(range);
+     el.setSelectionRange(0, 999999);
+
+     // restore contentEditable/readOnly to original state
+     el.contentEditable = editable;
+     el.readOnly = readOnly;
+ }
+ else {
+     el.select();
+ }
+
+ document.execCommand('copy');
+ document.body.removeChild(el);
+
+}
+</script>
+</html>

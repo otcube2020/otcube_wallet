@@ -1,0 +1,19 @@
+<ul class="menu">
+  <li><a href="/mypage/my_wallet?type=0" <% if (key === 1) { if (type ==0 ){ %> class="current" <% } } %> >RECEIVE</a></li>
+  <li>
+    <a href="/mypage/my_wallet?type=1" <% if (key === 1) { if (type > 0 && type < 3){ %> class="current" <% } } %> >SEND</a>
+    <ul class="sub_menu">
+      <li><a href="/mypage/my_wallet?type=1" <% if (type == 1) { %> class="current" <% } %>>ETH</a></li>
+      <li><a href="/mypage/my_wallet?type=2" <% if (type == 2) { %> class="current" <% } %>>OTQ</a></li>
+    </ul>
+  </li>
+  <li>
+      <a href="/mypage/my_wallet?type=3" <% if (key === 1) { if (type > 2 ){ %> class="current" <% } } %> >BUY</a>
+      <ul class="sub_menu">
+        <li><a href="/mypage/my_wallet?type=3" <% if (type == 1) { %> class="current" <% } %>>OTQ</a></li>        
+      </ul>
+    </li>
+  <li><a href="/mypage/profile" <% if (key === 3) { %> class="current" <% } %> >PROFILE</a></li>
+  <li><a href="https://etherscan.io/address/<%= address %>" <% if (key === 2) { %> class="current" <% } %>  target="_blank" > TRANSACTION</a></li>
+ 
+</ul>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<% include ./includes/header.ejs %>
+<body>
+
+<div class="wrapper">
+	<div class="container login">
+		<header>
+			<div>
+				<a href="#n" class="logo">
+					<img src="images/otcube_logo-02.png" style="width: 250px;height: 60px;">
+				</a>
+			</div>
+		</header>
+		<div class="left">
+			<ul class="menu">
+				<li class="liLink1"><a href="javascript:void(0);">SIGN UP</a></li>
+				<li class="liLink2"><a href="/login" class="current">LOG IN</a></li>
+			</ul>
+			<div class="s_title">
+				<h2>Great to see you again</h2>
+				<p>
+					Log in to your existing wallet using wallet ID.<br/>
+					You must have wallet ID in your email.
+				</p>
+			</div>
+			<form action="/login_confirm" method="post" name="frm_login" id="frm_login">
+			<div class="form">
+				<p class="insert">
+					<label>Wallet E-mail ID</label>
+					<input type="email" id="email_id" name="email_id" placeholder="E-mail">
+					<!-- <small class="caution">Invalid wallet ID</small> -->
+				</p>
+				<p class="insert">
+					<label>Password</label>
+					<input type="password" id="password" name="password" placeholder="Password">
+					<!-- <small class="caution">The password must be set from 8 characters to 12 characters with 1 special character and English / numeric characters.</small> -->
+				</p>
+			</div>
+		</form>
+
+			<a href="#n" onclick="fnLogin()" class="btn_submit">LOG IN</a>
+			<div style="margin-top: 30px;">
+				<div>Forgot your Password?</div>
+				<div>No worries, <a href="/reset_pw" class="btn_link">Click Here</a> to reset your password.</div>
+			</div>
+			<!-- <p class="forgot_pw">
+				Forgot your Password?<br/>
+				No worries, <a href="/reset_pw" class="btn_link">Click Here</a> to reset your password.
+			</p> -->
+		</div>
+		<div class="right">
+			<!-- <img src="/images/front/bg_login.png"> -->
+		</div>
+	</div>
+
+</div>
+<input type="hidden" id="rmessage" value="<%= message %>" />
+<% include ./includes/footer.ejs %>
+</body>
+<script type="text/javascript">
+$(document).ready(function(){
+	//-------------작업공지 START---------------------
+	// $("#commMsg").html("<img src='/images/job_alert.PNG'>");
+	// $(".popup").css("width","600px");
+	// $('.alert_popNum').show();
+//-------------작업공지 END---------------------
+	if($("#rmessage").val() != "") {
+		$("#papup_top_h3").text( "Membership Login FAIL");
+		$('#popup_mid_div').empty();
+		$('#popup_mid_div').append('<p>'+$("#rmessage").val()+'</p>');
+		$('#popup1_submit').attr('href','javascript:close_popup();');
+		$('.popNum1').show();
+
+		return;
+	}
+
+	$('.liLink1').on('touchstart click', function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		//your code here
+
+		location.href='/registration';
+	});
+
+	$('.liLink2').on('touchstart click', function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		//your code here
+
+		location.href='/login';
+	});
+
+	$('.btn_submit').on('touchstart click', function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		//your code here
+		fnLogin();
+	});
+});
+
+function fnLogin() {
+//	alert("fnlogin")
+	if($("#email_id").val() == "" ) {
+		$("#papup_top_h3").text( "Membership Login FAIL");
+		$('#popup_mid_div').empty();
+		$('#popup_mid_div').append('<p>Invalid login information. *Tip: The username is not your email address</p>');
+		$('#popup1_submit').attr('href','javascript:close_popup();');
+		$('.popNum1').show();
+		return;
+	}
+
+	if($("#password").val() == "" ) {
+		$("#papup_top_h3").text( "Membership Login FAIL");
+		$('#popup_mid_div').empty();
+		$('#popup_mid_div').append('<p>The password must be set from 8 characters to 12 characters with 1 special character and English / numeric characters.</p>');
+		$('#popup1_submit').attr('href','javascript:close_popup();');
+		$('.popNum1').show();
+		return;
+	}
+
+	wrapWindowByMask();
+	$("#frm_login").submit();
+}
+
+</script>
+</html>

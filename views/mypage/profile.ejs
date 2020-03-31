@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<% include ../includes/header.ejs %>
+<body>
+
+<div class="wrapper">
+	<!-- <header>
+		<h1><a href="#n" class="logo"><img src="/images/BI_CUBE.png" style="width:50px; height:50px;"></a></h1>
+		<a href="#n" class="mobile_menu"><i class="xi-bars"></i></a>
+	</header> -->
+
+	<div class="sub_container profile">
+		<header>
+  		 <div class="logo_header" style="display:flex; align-items:center; justify-content:space-between;">
+  			 <a href="#n" class="logo">
+  				 <img src="../../images/otcube_logo-02.png" class="otq_logo" style="">
+  			 </a>
+  		 </div>
+  		 <a href="#n" class="mobile_menu" style="top:1.5rem;"><i class="xi-bars"></i></a>
+  	 </header>
+    <!-- PC 지갑 부분 -->
+    <% include ./main_wallet.ejs %>
+
+		<div class="col right">
+			<div class="col_wrap">
+        <!-- pc 메뉴 -->
+				<% include ../includes/pc_menu.ejs %>
+				<div class="contents">
+					<h4>Your Information</h4>
+					<div class="form">
+						<p class="inserted">
+							<small>Email</small>
+							<span><%= user %></span>
+						</p>
+						<p class="inserted">
+							<small>Password</small>
+							<span><a id="pwModify" href="javascript:void(0)" class="btn_link btnPopNum1">Modify</a></span>
+						</p>
+						<p class="inserted">
+							<small>Wallet Address</small>
+							<span id="wallet1">
+								<%= address %>
+							</span>
+							<a href="#n" class="btn_link clicpboard clicpboard2">Copy</a>
+						</p>
+						<!-- <p class="inserted">
+							<small>Recommend URL</small>
+
+							<span id="shortURL">
+
+							</span>
+
+							<br />
+							<a href="javascript:fnRcmmndrAdd();" class="btn_link">Add</a>
+						</p>
+						<p class="inserted">
+							<small>Recommend</small>
+							<span><%= recom_email_id %> </span>
+						</p> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 패스워드 리셋 팝업 -->
+<div id="pwPopup_div" class="popupWrap popNum3">
+	<div class="popup">
+		<div class="popup_top">
+			<h3>Password Registration</h3>
+			<small>Please enter your New Password </small>
+			<a href="#n" class="btn_popClose"><i class="xi-close-thin"></i></a>
+		</div>
+		<div class="popup_mid">
+			<div class="form">
+				<p class="insert">
+					<label>Current Password</label>
+					<input type="password" id="pass" placeholder="Password">
+				</p>
+				<p class="insert">
+					<label>Your Password</label>
+					<input type="password" id="pass1" placeholder="Password">
+					<!-- <small class="caution">The password must be set from 8 characters to 12 characters with 1 special character and English / numeric characters.</small> -->
+				</p>
+				<p class="insert">
+					<label>Comfirm Your Password</label>
+					<input type="password" id="pass2" placeholder="Password">
+				</p>
+			</div>
+		</div>
+		<div class="popup_bttm">
+			<ul class="col-1">
+				<li><a href="javascript:fnReset();" class="btn_submit">Reset Password</a></li> <!--btnPopNum2-->
+			</ul>
+		</div>
+	</div>
+</div>
+
+<input type="hidden" id="email_id" value="<%= user %>" />
+<!-- mobile 슬라이딩 메뉴 -->
+<% include ../includes/mobile_menu.ejs %>
+
+<% include ../includes/footer.ejs %>
+</body>
+
+<script src='/js/poloniexAPI.js'></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#pwModify").click(function() {
+		$('#pwPopup_div').show();
+    });
+
+	poloniex();
+
+
+	$.ajax({
+		url: '/profile/rcmmndrList',                //주소
+			dataType: 'json',                  //데이터 형식
+			type: 'POST',                      //전송 타입
+			data: '',      //데이터를 json 형식, 객체형식으로 전송
+			success: function(data) {          //성공했을 때 함수 인자 값으로 결과 값 나옴
+				console.log(data)
+				if (data.result == true) {
+					if (data.list.length > 0) {
+
+						var html = "";
+						for (var i=0; i < data.list.length; i++ ) {
+							html += "<a href=\"javascript:fnCopy('"+data.list[i].short+"')\" id = '"+data.list[i].short +"' class=\"btn_link clicpboard clicpboard1\">"+data.list[i].full_url+"</a><br />"
+						}
+
+						$('#shortURL').append(html);
+					}
+				}
+
+			},error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("Status: " + textStatus); alert("Error: " + errorThrown);
+		}    //function끝
+	}); // ------      ajax 끝-----------------
+});
+
+
+function fnReset() {
+		//emtpy pass1 check
+		if($("#pass").val() == "" ) {
+			$("#papup_top_h3").text( "Password Modify FAIL");
+			$('#popup_mid_div').empty();
+			$('#popup_mid_div').append('<p>Current Password required</p>');
+			$('#popup1_submit').attr('href','javascript:close_popup();');
+			$('.popNum1').show();
+
+			return;
+		}
+
+		if($("#pass1").val() == "" ) {
+			$("#papup_top_h3").text( "Password Modify FAIL");
+			$('#popup_mid_div').empty();
+			$('#popup_mid_div').append('<p>Your Password required</p>');
+			$('#popup1_submit').attr('href','javascript:close_popup();');
+			$('.popNum1').show();
+			return;
+		}
+		//empty pass2 check
+		if($("#pass2").val() == "" ) {
+			$("#papup_top_h3").text( "Password Modify FAIL");
+			$('#popup_mid_div').empty();
+			$('#popup_mid_div').append('<p>Confirm Your Password required</p>');
+			$('#popup1_submit').attr('href','javascript:close_popup();');
+			$('.popNum1').show();
+			return;
+		}
+		// pass1 == pass2 check
+		if($("#pass1").val() != $("#pass2").val()  ) {
+			$("#papup_top_h3").text( "Password Modify FAIL");
+			$('#popup_mid_div').empty();
+			$('#popup_mid_div').append('<p>Sorry… Your passwords do not match</p>');
+			$('#popup_mid_div').append('<p>Please try again</p>');
+			$('#popup1_submit').attr('href','javascript:close_popup();');
+			$('.popNum1').show();
+
+			return;
+		}
+		console.log($('#pass').val());
+		$.ajax({
+			url: '/tempPassword',                //주소
+				dataType: 'json',                  //데이터 형식
+				type: 'POST',                      //전송 타입
+				data: {'email_id':$('#email_id').val(),'password':$('#pass').val()},      //데이터를 json 형식, 객체형식으로 전송
+				success: function(result) {          //성공했을 때 함수 인자 값으로 결과 값 나옴
+				  if ( result['result'] == true ) {
+						passValidator();
+					} else {
+						$("#papup_top_h3").text( "Password Modify FAIL");
+						$('#popup_mid_div').empty();
+						$('#popup_mid_div').append('<p>Sorry… Your passwords do not match</p>');
+						$('#popup_mid_div').append('<p>Please try again</p>');
+						$('#popup1_submit').attr('href','javascript:close_popup();');
+						$('.popNum1').show();
+						return;
+					}
+				},error: function(XMLHttpRequest, textStatus, errorThrown) {
+	          alert("Status: " + textStatus); alert("Error: " + errorThrown);
+	      }    //function끝
+		}); // ------      ajax 끝-----------------
+}
+
+function passValidator() {
+	console.log("passValidator")
+	$.ajax({
+		url: '/passValidator',                //주소
+			dataType: 'json',                  //데이터 형식
+			type: 'POST',                      //전송 타입
+			data: {'email_id':$('#email_id').val(),'password':$('#pass1').val(),'type':'02'},      //데이터를 json 형식, 객체형식으로 전송
+			success: function(result) {          //성공했을 때 함수 인자 값으로 결과 값 나옴
+				if ( result['result'] == true ) {
+					$("#papup_top_h3").text( "Password Modify Complete");
+					$('#popup_mid_div').empty();
+					$('#popup_mid_div').append('<p>Success Change Password</p>');
+					$('#popup1_submit').attr('href','javascript:fnPwCngPopupClose();');
+					$('.popNum1').show();
+				} else {
+					if(result['code'] == "01") {
+						$("#papup_top_h3").text( "Password Modify FAIL");
+						$('#popup_mid_div').empty();
+						$('#popup_mid_div').append('<p>'+result['message']+'</p>');
+					} else {
+						$("#papup_top_h3").text( "Password Modify FAIL");
+						$('#popup_mid_div').empty();
+						$('#popup_mid_div').append('<p>The password must be set from 8 characters to 12 characters with 1 special character and English / numeric characters.</p>');
+					}
+					$('#popup1_submit').attr('href','javascript:close_popup();');
+					$('.popNum1').show();
+
+					console.log(result['list'])
+					return;
+				}
+			},error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alert("Status: " + textStatus); alert("Error: " + errorThrown);
+			}    //function끝
+	}); // ------      ajax 끝-----------------
+}
+
+function copyToClipboard(val) {
+    var el = document.createElement('textarea');
+    el.value = val;
+    el.setAttribute('readonly', '');
+    el.style = {position: 'absolute', left: '-9999px'};
+    document.body.appendChild(el);
+
+    if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+
+        // save current contentEditable/readOnly status
+        var editable = el.contentEditable;
+        var readOnly = el.readOnly;
+
+        // convert to editable with readonly to stop iOS keyboard opening
+        el.contentEditable = true;
+        el.readOnly = true;
+
+        // create a selectable range
+        var range = document.createRange();
+        range.selectNodeContents(el);
+
+        // select the range
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        el.setSelectionRange(0, 999999);
+
+        // restore contentEditable/readOnly to original state
+        el.contentEditable = editable;
+        el.readOnly = readOnly;
+    }
+    else {
+        el.select();
+    }
+
+    document.execCommand('copy');
+    document.body.removeChild(el);
+
+}
+// $('.clicpboard1').click(function() {
+//   	copyToClipboard($("#shortURL").text().trim());
+// 	$("#papup_top_h3").text( "Recommend URL has been copied.");
+// 	$('#popup_mid_div').empty();
+//     $('.popNum1').show();
+//     $('#popup1_submit').attr('href','javascript:close_popup();');
+
+// });
+function m_menu_close(){
+  $('.popupWrap_2').css('display', 'none');
+}
+
+$('.clicpboard2').click(function() {
+  	copyToClipboard($("#wallet1").text().trim());
+	$("#papup_top_h3").text( "The deposit address has been copied.");
+	$('#popup_mid_div').empty();
+    $('.popNum1').show();
+    $('#popup1_submit').attr('href','javascript:close_popup();');
+});
+
+
+function fnPwCngPopupClose(){
+	close_popup();
+	$('#pwPopup_div').hide();
+
+}
+
+function fnCopy(id) {
+	copyToClipboard($('#'+id).text().trim());
+	$("#papup_top_h3").text( "Recommend URL has been copied.");
+	$('#popup_mid_div').empty();
+    $('.popNum1').show();
+    $('#popup1_submit').attr('href','javascript:close_popup();');
+}
+
+function fnRcmmndrAdd() {
+		$.ajax({
+			url: '/profile/rcmmndrAdd',                //주소
+				dataType: 'json',                  //데이터 형식
+				type: 'POST',                      //전송 타입
+				data: '',      					//데이터를 json 형식, 객체형식으로 전송
+				success: function(data) {          //성공했을 때 함수 인자 값으로 결과 값 나옴
+					var html = "";
+					html += "<a href=\"javascript:fnCopy('"+data.short+"')\" id = '"+data.short +"' class=\"btn_link clicpboard clicpboard1\">"+data.fullURL+"</a><br />"
+					$('#shortURL').append(html);
+				},error: function(XMLHttpRequest, textStatus, errorThrown) {
+	          alert("Status: " + textStatus); alert("Error: " + errorThrown);
+	      }    //function끝
+		}); // ------      ajax 끝-----------------
+}
+</script>
+</html>
