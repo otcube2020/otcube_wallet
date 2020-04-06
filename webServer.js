@@ -37,7 +37,7 @@ var flash = require('connect-flash');
     },
   resave: false,
   saveUninitialized: false,
-  secret: 'GBT!*Session'
+  secret: ''
 })); // 세션 활성화
 
 // flash는 세션을 필요로합니다. session 아래에 선언해주셔야합니다.
