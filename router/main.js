@@ -37,17 +37,17 @@ function sendEmail(to,randomKey,callback) {
               console.log("mail callback2");
               var subject = 'OTCUBE COIN temp password';
 
-            
-              let form = new FormData() 
-              
 
-              form.append('email', to) 
-              form.append('title', subject) 
-              form.append('contents', html) 
-              form.append('flag', 'otcubewallet') 
-              form.append('send_email', 'info@otcubewallet.io') 
-              form.append('ip', '180.70.190.8') 
-              form.submit('http://116.126.87.167:10002/mail.php', function(err, res) {
+              let form = new FormData()
+
+
+              form.append('email', to)
+              form.append('title', subject)
+              form.append('contents', html)
+              form.append('flag', '') 
+              form.append('send_email', '')
+              form.append('ip', '')
+              form.submit('', function(err, res) {
               // res – response object (http.IncomingMessage)  //
               if(err) callback(err);
               //res.resume();
@@ -93,7 +93,7 @@ module.exports = function(app, pool)
     app.post("/login_confirm", function(req, res, next){
       console.log("login_check")
       passport.authenticate("local-signin", function(err, user){
-        if(err){ 
+        if(err){
           // return next(err);
           req.flash('signinMessage', err.message)
           return res.redirect('/login');
@@ -191,7 +191,7 @@ module.exports = function(app, pool)
         //회원가입
         if ( type == "01") {
           passport.authenticate("local-signup", function(err, user){
-          
+
             if(err){
               console.log("error")
               res.send({code:"03",result:false, message : err.message});
